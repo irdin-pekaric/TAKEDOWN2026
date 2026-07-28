@@ -4,6 +4,10 @@ This repository is provided for double-blind peer review and contains no author-
 
 It holds the human-annotated samples behind the classifier validation reported in the paper (Section 3.2.2 and Appendix G). Each file is a sample of Telegram messages together with independent human labels, classifier predictions, or both, following the taxonomy and codebook defined in the paper's Appendix C.
 
+## Infrastructure Detection Tool — Keyword and TF-IDF + Logistic Regression Methods
+
+File `reproducible_infrastructure_labeling.ipynb` has the code for the tools tested and the final one utilized. 
+
 ## Taxonomy inter-annotator agreement — Table 7
 
 | File | Contents |
