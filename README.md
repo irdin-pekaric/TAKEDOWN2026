@@ -1,6 +1,18 @@
-# Validation Data — A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram
+# Detecting Infrastructure-as-a-Service Offerings on Telegram
 
-This repository is provided for double-blind peer review and contains no author-identifying information.
+This is the repository of the paper *"A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram"*, accepted to the TAKEDOWN Workshop, held in conjunction with the ACM Conference on Computer and Communications Security (CCS 2026).
+
+If you use any of our resources, you are kindly invited to cite our paper:
+
+```bibtex
+@inproceedings{ricaldi2026bulletproof,
+    title={{A Bulletproof Business? Towards Detecting Infrastructure-as-a-Service Offerings on Telegram}},
+    author={Ricaldi, Roy and Kyurkchiev, Kristiyan and Pekaric, Irdin},
+    booktitle={Proc. ACM TAKEDOWN Workshop at ACM CCS},
+    year={2026}
+}
+```
+
 
 It holds the human-annotated samples behind the classifier validation reported in the paper (Section 3.2.2 and Appendix G). Each file is a sample of Telegram messages together with independent human labels, classifier predictions, or both, following the taxonomy and codebook defined in the paper's Appendix C.
 
