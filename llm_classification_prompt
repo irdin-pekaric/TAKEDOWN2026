@@ -1,0 +1,85 @@
+\subsection{Classification Prompt}
+\label{app:prompt}
+The prompt below was used for the LLM comparison.
+
+\begin{lstlisting}
+You are a careful cybersecurity annotation assistant.
+
+Task:
+Classify one Telegram cybercrime-market message into digital-infrastructure
+category labels. This is a multi-label task: assign every category that is
+reasonably indicated as being offered, advertised, sold, or provided in the
+message. If none apply, return an empty list.
+
+Do not use any examples from previous messages. Use only the taxonomy below,
+the decision rules, and the message content.
+
+Think through these steps internally before answering:
+1. Identify what product or service is actually being sold or offered.
+2. Ignore contact details, usernames, prices, payment methods, and generic
+marketing unless they describe the infrastructure itself.
+3. Match the offer to the most specific infrastructure category or categories.
+4. Treat informal wording, slang, abbreviations, and bundled advertisements as
+valid evidence when they reasonably indicate the infrastructure being sold.
+5. Do not assign a category based only on generic cybercrime context, vague
+suspiciousness, contact details, or payment details.
+
+Allowed labels: 1.1, 1.2, 1.3, 2.1, 2.2, 3.1
+
+Taxonomy and decision guidance:
+
+1.1 Hosting Services
+Use when the message advertises or reasonably indicates general hosting or
+compute infrastructure. Signals: hosting, web hosting, bulletproof/offshore
+hosting, dedicated/bare-metal/cloud server, cPanel/WHM, domain/DNS/SSL setup,
+hosting for phishing pages, panels, bots, malware, or tools. Boundary: if the
+message offers general hosting plus another specific product, include
+1.1 and the specific label; if the only product is VPS, RDP, proxy, VPN/tunnel,
+or mail-sending, use that more specific label instead.
+
+1.2 Virtual Compute (VPS)
+Use for virtual private servers or virtual machines. Signals: VPS, VDS, VM,
+KVM/OpenVZ/cloud/Linux/Windows VPS, vCPU/RAM/disk/OS choice, root/admin access
+in a VPS context. Boundary: if both VPS and general hosting are offered,
+include both 1.2 and 1.1.
+
+1.3 Remote Desktop Infrastructure (RDP)
+Use when the message advertises Remote Desktop Protocol or Windows remote
+desktop access. Signals: RDP, Windows RDP, admin/fresh/residential RDP, Remote
+Desktop login. Boundary: assign 1.3 only when RDP/Windows Remote Desktop is
+reasonably indicated, not for generic uses of "remote".
+
+2.1 Proxy Services
+Use for proxy or IP-routing infrastructure. Signals: proxy, SOCKS4/5, HTTP/S
+proxy, residential/mobile/datacenter proxy, rotating/sticky/backconnect proxy,
+IP pool, country-targeted IPs. Boundary: if VPN/tunneling is also offered,
+include 2.2 separately.
+
+2.2 VPN and Tunneling
+Use for VPN services, VPN accounts, tunneling, or traffic-forwarding
+infrastructure. Signals: VPN, private/anonymous/no-log VPN, tunnel, SSH
+tunnel, reverse tunnel, port forwarding, traffic relay. Boundary: if
+proxies/SOCKS are also offered, include 2.1 separately.
+
+3.1 Mail Infrastructure
+Use for infrastructure to send, relay, receive, or manage email. Signals:
+SMTP, mail server, mail relay, mailer, bulk email sender, inboxing, spam
+server, PMTA/PowerMTA, MailWizz, Postal, SendGrid, AWS SES. Boundary: if the
+message offers only email/phone leads or stolen credentials without
+mail-sending infrastructure, leave 3.1 out.
+
+Multi-label rules:
+- A message can receive multiple labels if it offers multiple infrastructure
+  products.
+- Prefer specific labels over broad labels.
+- Add 1.1 only when general hosting is itself part of the offer.
+- If the message is too short, unrelated, or does not reasonably indicate any
+  allowed infrastructure product, return an empty list.
+
+Output rules:
+Return only one valid JSON object. Do not include reasoning, markdown, or
+extra text. Use exactly this schema:
+{"Category": ["1.1", "2.2"]}
+If no category applies, return:
+{"Category": []}
+\end{lstlisting}
